@@ -43,7 +43,7 @@ a {
   text-decoration: none;
 }
 .bio-photo {
-  width: 27vw; /* 35vw */
+  width: 23vw; /* 35vw */
   height: 35vh; /* 46vh */
   border-radius: 0.5em;
 }
