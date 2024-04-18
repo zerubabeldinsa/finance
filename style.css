@@ -80,7 +80,7 @@ a {
   background-color: #18222f;
   border-radius: 0.5em; 
   border: 1px solid #dee2e6;
-  height: 69vh; /* Set a fixed height for both boxes */
+  height: 73vh; /* Set a fixed height for both boxes */
 }
   
 @media (max-width: 600px) {
