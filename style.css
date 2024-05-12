@@ -43,9 +43,6 @@ a {
   color: dodgerblue;
   text-decoration: none;
 }
-.bio {
-  margin-bottom: 1em;
-}
 .bio-photo {
   width: 23vw; /* 35vw */
   height: 35vh; /* 46vh */
@@ -116,9 +113,6 @@ a {
     padding-right: 0.5em;
     padding-bottom: 0.8em; 
     height: auto; /* Allow height to adjust on mobile screens */
-  }
-  .bio {
-    margin-bottom: 1em;
   }
   .bio-photo {
     margin-top: 1em;
