@@ -93,10 +93,17 @@ a {
   }
   h1 {
     font-size: 2em;
+    margin-top: 1em;
     text-align: center;
   }
   .styling h1 {
     font-size: 1.2em;
+  }
+  p {
+    text-align: center;
+  }
+  #first_pars {
+    margin-top: 1.5em;
   }
   li {
     color: white;
