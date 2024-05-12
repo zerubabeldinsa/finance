@@ -93,6 +93,8 @@ a {
   }
   h1 {
     font-size: 2em;
+  }
+  #name {
     text-align: center;
   }
   .styling h1 {
