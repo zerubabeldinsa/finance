@@ -54,7 +54,7 @@ a {
   margin-top: 3em;
   background-color: #18222f;
   border: 0px solid #dee2e6;
-  height: 54vh; /* Set a fixed height for both boxes */
+  height: 44vh; /* Set a fixed height for both boxes */
 }
 .right-box {
   display: flex;
@@ -64,7 +64,7 @@ a {
   margin: 1em;
   background-color: #18222f;
   border: 0px solid #dee2e6;
-  height: 54vh; /* Set a fixed height for both boxes */
+  height: 44vh; /* Set a fixed height for both boxes */
 }
 .left-box-two {
   flex: 2; /* Makes the left box twice as wide as the right box */
