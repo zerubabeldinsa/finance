@@ -32,9 +32,6 @@ p {
   color: white;
   font-style: italic;
 }
-#first_pars {
-  margin-bottom: 1.5em;
-}
 .styling h1 {
   font-size: 1.5em;
 }
@@ -97,9 +94,6 @@ a {
   }
   .styling h1 {
     font-size: 1.2em;
-  }
-  #first_pars {
-    margin-top: 1.5em;
   }
   li {
     color: white;
