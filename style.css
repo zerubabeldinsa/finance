@@ -3,7 +3,7 @@ body {
   background-color: #18222f;
 }
 .container {
-  display: flex;
+  display: flex; 
   margin-bottom: 1em;
 }
 h1 {
