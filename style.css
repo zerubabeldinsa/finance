@@ -4,7 +4,7 @@ body {
 }
 .container {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 }
 h1 {
   font-size: 2.5em;
