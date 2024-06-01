@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
 body {
-  background-color: #18222f;
+  background-color: #0e1e37;
 }
 .container {
   display: flex; 
@@ -52,7 +52,7 @@ a {
   flex: 1.4; /* Makes the left box twice as wide as the right box */
   margin: 1em;
   margin-top: 3em;
-  background-color: #18222f;
+  background-color: #0e1e37;
   border: 0px solid #dee2e6;
   height: 55vh; /* Set a fixed height for both boxes */
 }
@@ -62,14 +62,14 @@ a {
   align-items: center;
   flex: 1; /* Makes the right box narrower */
   margin: 1em;
-  background-color: #18222f;
+  background-color: #0e1e37;
   border: 0px solid #dee2e6;
   height: 55vh; /* Set a fixed height for both boxes */
 }
 .left-box-two {
   flex: 2; /* Makes the left box twice as wide as the right box */
   margin: 1em;
-  background-color: #18222f;
+  background-color: #0e1e37;
   border: 0px solid #dee2e6;
   height: 74vh; /* Set a fixed height for both boxes */
 }
@@ -78,7 +78,7 @@ a {
   margin: 1em;
   margin-top: 2.5em;
   padding-left: 0.5em;
-  background-color: #18222f;
+  background-color: #0e1e37;
   border-radius: 0.5em; 
   border: 1px solid #dee2e6;
   height: 73vh; /* Set a fixed height for both boxes */
