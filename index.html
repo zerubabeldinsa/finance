@@ -4,55 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zerubabel T. Dinsa - Portfolio</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <style>
-        /* Custom Tailwind Configuration & Base Styles (Light Theme) */
+        /* --- THEME VARIABLES --- */
+        /* Light Theme (Default) */
         :root {
-            /* Define colors for easy theming */
             --color-primary: #2563eb; /* Deep Blue Accent (Blue-600) */
             --color-secondary: #1f2937; /* Dark Gray Text (Gray-800) */
             --color-background: #f8fafc; /* Very Light Blue (Slate-50) */
             --color-card-bg: #ffffff; /* Pure White Card Background */
+            --color-text-paragraph: #4b5563; /* Gray-600 */
+            --color-text-bold: #1f2937; /* Gray-800 */
+            --color-text-link: var(--color-primary);
+            --color-border: #d1d5db; /* Gray-300 */
+            --color-shadow-light: rgba(255, 255, 255, 0.5); /* Light shadow for neomorphism */
+            --color-shadow-dark: rgba(0, 0, 0, 0.1);   /* Dark shadow for neomorphism */
+            --color-scroll-thumb: #cbd5e1; /* Slate-300 */
+            --color-scroll-hover: #94a3b8; /* Slate-400 */
         }
         
+        /* Dark Theme (Applied when 'dark' class is present on body) */
+        body.dark {
+            --color-primary: #8ff5f9; /* Bright Cyan Accent */
+            --color-secondary: #dee2e6; /* Light Gray Text */
+            --color-background: #0f101a; /* Even Darker Background (almost black) */
+            --color-card-bg: #1a1c28; /* Slightly lighter than background for card effect */
+            --color-text-paragraph: #9ca3af; /* Gray-400 */
+            --color-text-bold: #ffffff; /* White */
+            --color-text-link: var(--color-primary);
+            --color-border: #2a2d3f; /* Dark border for subtle depth */
+            --color-shadow-light: rgba(42, 45, 63, 0.5); /* Light shadow from card background */
+            --color-shadow-dark: rgba(0, 0, 0, 0.8); /* Dark shadow for neomorphism */
+            --color-scroll-thumb: #2a2d3f;
+            --color-scroll-hover: #3b3f5c;
+        }
+
+        /* --- BASE STYLES & TRANSITIONS --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
-            /* Apply the custom gradient */
+            color: var(--color-secondary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* Light Gradient only in light mode */
+        body:not(.dark) {
             background-image: radial-gradient(
                 circle at top right,
                 rgba(224, 242, 254, 0.7) 0%,
                 transparent 50%
             );
-            color: var(--color-secondary);
-            transition: background-color 0.3s;
         }
-        
+
         /* Custom font for name/titles */
         .font-vollkorn {
             font-family: 'Vollkorn', serif;
         }
 
-        /* Utility classes using CSS variables */
-        .text-primary { color: var(--color-primary); }
-        .bg-card { background-color: var(--color-card-bg); }
-        .border-primary { border-color: var(--color-primary); }
+        /* Apply Theme Variables to Tailwind Classes */
+        .text-theme-primary { color: var(--color-primary) !important; }
+        .bg-card { 
+            background-color: var(--color-card-bg) !important; 
+            /* Neomorphic shadows for cards */
+            box-shadow: 7px 7px 14px var(--color-shadow-dark), -7px -7px 14px var(--color-shadow-light) !important;
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Added transform transition for hover */
+        }
         
-        /* Custom scrollbar for aesthetics (Light Theme) */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Hover effect for all cards */
+        .bg-card:hover {
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 10px 10px 20px var(--color-shadow-dark), -10px -10px 20px var(--color-shadow-light) !important; /* Slightly larger shadow */
         }
-        ::-webkit-scrollbar-track {
-            background: var(--color-background);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; /* Slate-300 */
+
+        .text-theme-secondary { color: var(--color-secondary) !important; }
+        .text-theme-paragraph { color: var(--color-text-paragraph) !important; }
+        .text-theme-bold { color: var(--color-text-bold) !important; }
+        .border-theme { border-color: var(--color-border) !important; }
+        .link-theme { color: var(--color-primary) !important; }
+        .bg-primary-tint { background-color: color-mix(in srgb, var(--color-primary) 10%, transparent) !important; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-background); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--color-scroll-thumb);
             border-radius: 4px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; /* Slate-400 */
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-scroll-hover); }
+
+        /* Neomorphic effect for the theme toggle button */
+        #theme-toggle {
+            box-shadow: 3px 3px 6px var(--color-shadow-dark), -3px -3px 6px var(--color-shadow-light) !important;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+            z-index: 10; /* Ensure it is above other elements */
+        }
+        #theme-toggle:hover {
+            box-shadow: inset 2px 2px 5px var(--color-shadow-dark), inset -2px -2px 5px var(--color-shadow-light) !important; /* Inset on hover */
         }
     </style>
     <script>
@@ -60,49 +108,89 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-blue': 'var(--color-primary)',
-                        'light-bg': 'var(--color-background)',
-                        'card-white': 'var(--color-card-bg)',
+                        'theme-primary': 'var(--color-primary)', 
+                        'theme-card': 'var(--color-card-bg)',
                     }
                 }
             }
         }
+
+        function applyTheme(isDark) {
+            const body = document.body;
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+
+            if (isDark) {
+                body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                toggleIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.106a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.06l1.59-.1.59Zm-1.591 14.288a.75.75 0 0 1-1.06 0l-1.59-1.59a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1 0 1.06ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM4.757 4.757a.75.75 0 0 0-1.06 1.06l1.59 1.59a.75.75 0 0 0 1.06-1.06l-1.59-1.59Zm-.106 13.894a.75.75 0 1 0 1.06-1.06l-1.59-1.59a.75.75 0 0 0-1.06 1.06l1.59 1.59ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM19.25 12a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0 0 1.5H18.5a.75.75 0 0 0 .75-.75ZM4.25 12a.75.75 0 0 0-.75-.75H3a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 .75-.75ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM12 21.75a.75.75 0 0 0-.75.75h-.5a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 .75-.75v-2.25a.75.75 0 0 0-.75-.75Z" />
+                    </svg>
+                `;
+            } else {
+                body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                toggleIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M9.502 2.903a1 1 0 0 1 1.096.386 8.5 8.5 0 0 0 7.576 9.488 1 1 0 0 1 1.026.438A1 1 0 0 1 19.8 14.1c-1.3-.284-2.69-.364-4.1-.24-1.5.127-2.88 0-4.2-.676-.9-.45-1.74-1.07-2.5-1.9-.8-.82-1.42-1.66-1.9-2.56-1.12-2.12-1.05-4.43.2-6.52a1 1 0 0 1 .382-1.098Z" clip-rule="evenodd" />
+                    </svg>
+                `;
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.body.classList.contains('dark');
+            applyTheme(!isDark);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                applyTheme(true);
+            } else {
+                applyTheme(false);
+            }
+        });
     </script>
 </head>
 <body class="min-h-screen p-4 sm:p-8">
 
-    <!-- Main Container -->
-    <main class="max-w-6xl mx-auto space-y-8">
+    <!-- Main Container --><main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- Header/Bio Section (Mobile: Photo on top, Desktop: Side-by-Side) -->
-        <header class="bg-card shadow-xl rounded-2xl p-6 lg:p-10 flex flex-col-reverse lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-10">
+        <!-- Header/Bio Section (Mobile: Photo on top, Desktop: Side-by-Side) --><header class="bg-card shadow-xl rounded-2xl p-6 lg:p-10 flex flex-col-reverse lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-10 relative">
             
-            <!-- Name and Summary (Left box content in original structure) -->
-            <div class="flex-grow w-full lg:w-2/3">
-                <h1 class="text-4xl sm:text-6xl font-extrabold text-primary-blue font-vollkorn mb-3">
+            <!-- Theme Toggle Button (Positioned Absolute top-4 right-4) --><button 
+                id="theme-toggle" 
+                onclick="toggleTheme()" 
+                class="absolute top-4 right-4 p-2 rounded-full text-theme-primary hover:bg-theme-primary/10 transition duration-300 focus:outline-none focus:ring-2 focus:ring-theme-primary"
+                aria-label="Toggle light and dark theme"
+            >
+                <span id="theme-toggle-icon" class="w-6 h-6">
+                    <!-- Initial icon set by JS on load --></span>
+            </button>
+
+            <!-- Name and Summary (Left box content in original structure) --><div class="flex-grow w-full lg:w-2/3">
+                <h1 class="text-4xl sm:text-6xl font-normal text-theme-primary font-vollkorn mb-3">
                     Zerubabel T. Dinsa
                 </h1>
-                <!-- Removed the inferred H2 subtitle to match initial content exactly -->
 
-                <!-- Original Paragraph 1: Corporate professional with academic background (italic) -->
-                <p class="text-gray-600 leading-relaxed italic mb-4">
+                <!-- Original Paragraph 1: Corporate professional with academic background (italic) --><p class="text-theme-paragraph leading-relaxed italic mb-4">
                     Zerubabel is a corporate professional with several years of experience in the corporate world. He has a Bachelor of Arts in International Studies and a minor in Economics from Towson University.
                 </p>
                 
-                <!-- Original Paragraph 2: Mid-career professional track record -->
-                <p class="text-gray-700 leading-relaxed mb-4">
+                <!-- Original Paragraph 2: Mid-career professional track record --><p class="text-theme-secondary leading-relaxed mb-4">
                     As a mid-career professional with a strong academic background, he has a proven track record of managing complex organizational projects and delivering successful results.
                 </p>
 
-                <!-- Original Paragraph 3: Programming AI (exact wording restored) -->
-                <p class="text-gray-700 leading-relaxed">
+                <!-- Original Paragraph 3: Programming AI (exact wording restored) --><p class="text-theme-secondary leading-relaxed">
                     One of the most important things he enjoys the most, is learning from experience. It’s why he takes delight in seeing a project from start to finish. When Zerubabel is not on the job working, he's often programming AI-applications.
                 </p>
             </div>
 
-            <!-- Photo (Right box content in original structure) -->
-            <div class="flex-shrink-0 w-full max-w-sm lg:w-1/3 flex flex-col items-center mb-6 lg:mb-0">
-                <img 
+            <!-- Photo (Right box content in original structure) --><div class="flex-shrink-0 w-full lg:w-1/3 flex flex-col items-center justify-center mb-6 lg:mb-0">
+                 <img 
                     src="bio-photo.jpg"
                     alt="Your Name" 
                     class="bio-photo"
@@ -111,20 +199,16 @@
 
         </header>
 
-        <!-- Main Content Grid (Experience & Sidebar) -->
-        <!-- This grid structure ensures mobile responsiveness by stacking columns -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content Grid (Experience & Sidebar) --><div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Experience (Main Column - left-box-two) -->
-            <section class="lg:col-span-2 space-y-8">
+            <!-- Experience (Main Column) --><section class="lg:col-span-2 space-y-8">
                 <div class="bg-card shadow-xl rounded-2xl p-6">
-                    <h2 class="text-3xl font-vollkorn font-semibold mb-6 text-primary-blue border-b border-primary-blue/30 pb-2">Experience</h2>
+                    <h2 class="text-3xl font-vollkorn font-semibold mb-6 text-theme-primary border-b border-theme/50 pb-2">Experience</h2>
                     
-                    <!-- Job 1 -->
-                    <article class="mb-8">
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">Finance Associate</h3>
-                        <p class="text-lg text-gray-600 mb-3">Robert Half International</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                    <!-- Job 1 --><article class="mb-8">
+                        <h3 class="text-xl font-bold text-theme-bold mb-1">Finance Associate</h3>
+                        <p class="text-lg text-theme-paragraph mb-3">Robert Half International</p>
+                        <ul class="list-disc list-inside space-y-2 text-theme-secondary ml-4">
                             <li>Oversee complex cross-functional projects from conception to practical implementation, defining key performance metrics and executing action plans accordingly </li>
                             <li>Provide formal supervision of project related requirements, evaluate written reports for operational improvements and monitor key project developments</li>
                             <li>Analyze data and ensure all project related requirements are being satisfied as expected</li>
@@ -134,11 +218,10 @@
                         </ul>
                     </article>
 
-                    <!-- Job 2 -->
-                    <article>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">File Handling Specialist</h3>
-                        <p class="text-lg text-gray-600 mb-3">First Guaranty Mortgage Corporation</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                    <!-- Job 2 --><article>
+                        <h3 class="text-xl font-bold text-theme-bold mb-1">File Handling Specialist</h3>
+                        <p class="text-lg text-theme-paragraph mb-3">First Guaranty Mortgage Corporation</p>
+                        <ul class="list-disc list-inside space-y-2 text-theme-secondary ml-4">
                             <li>Manage mortgage loan related correspondence with specific investors, review mortgage loan applications for compliance with industry guidelines and supervise pipeline with corporate clients or investors</li>
                             <li>Track project performance metrics and KPIs in order to measure progress against project objectives and identify areas of improvements</li>
                             <li>Supervise multiple projects and develop strong relationships with corporate clients</li>
@@ -150,47 +233,41 @@
                 </div>
             </section>
             
-            <!-- Sidebar (Education, Skills, Contact - right-box-two) -->
-            <aside class="lg:col-span-1 space-y-8">
+            <!-- Sidebar (Education, Skills, Contact) --><aside class="lg:col-span-1 space-y-8">
                 
-                <!-- Education Card -->
-                <div class="bg-card shadow-xl rounded-2xl p-6 border border-gray-300">
-                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-primary-blue border-b border-primary-blue/30 pb-2">Education</h2>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Towson University</h3>
-                    <ul class="space-y-1 text-gray-700">
+                <!-- Education Card --><div class="bg-card shadow-xl rounded-2xl p-6 border border-theme">
+                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-theme-primary border-b border-theme/50 pb-2">Education</h2>
+                    <h3 class="text-xl font-bold text-theme-bold mb-2">Towson University</h3>
+                    <ul class="space-y-1 text-theme-secondary">
                         <li class="pl-2">— Bachlor of Arts: International Studies</li>
                         <li class="pl-2">— Minor: Economics</li>
                     </ul>
                 </div>
                 
-                <!-- Certifications & Orgs Card -->
-                <div class="bg-card shadow-xl rounded-2xl p-6 border border-gray-300">
-                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-primary-blue border-b border-primary-blue/30 pb-2">Certification | Organization</h2>
-                    <ul class="space-y-1 text-gray-700">
+                <!-- Certifications & Orgs Card --><div class="bg-card shadow-xl rounded-2xl p-6 border border-theme">
+                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-theme-primary border-b border-theme/50 pb-2">Certification | Organization</h2>
+                    <ul class="space-y-1 text-theme-secondary">
                         <li class="pl-2">— American Council on the Teaching of Foreign Languages (ACTFL)</li>
                         <li class="pl-2">— Alpha Kappa Psi (Business Professional Fraternity)</li>
                     </ul>
                 </div>
 
-                <!-- Skills Card (Restored original misspelling: "Analitical") -->
-                <div class="bg-card shadow-xl rounded-2xl p-6 border border-gray-300">
-                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-primary-blue border-b border-primary-blue/30 pb-2">Analitical & Software Skills</h2>
+                <!-- Skills Card --><div class="bg-card shadow-xl rounded-2xl p-6 border border-theme">
+                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-theme-primary border-b border-theme/50 pb-2">Analitical & Software Skills</h2>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-medium">Computer Programming</span>
-                        <span class="px-3 py-1 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-medium">Quantitative Financial Analysis</span>
-                        <span class="px-3 py-1 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-medium">Client-side Development</span>
-                        <span class="px-3 py-1 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-medium">Server-side Development</span>
+                        <span class="px-3 py-1 bg-primary-tint text-theme-primary rounded-full text-sm font-medium">Computer Programming</span>
+                        <span class="px-3 py-1 bg-primary-tint text-theme-primary rounded-full text-sm font-medium">Quantitative Financial Analysis</span>
+                        <span class="px-3 py-1 bg-primary-tint text-theme-primary rounded-full text-sm font-medium">Client-side Development</span>
+                        <span class="px-3 py-1 bg-primary-tint text-theme-primary rounded-full text-sm font-medium">Server-side Development</span>
                     </div>
                 </div>
 
-                <!-- Contact/Socials Card (Restored original pipe-separated link structure) -->
-                <div class="bg-card shadow-xl rounded-2xl p-6 border border-gray-300">
-                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-primary-blue border-b border-primary-blue/30 pb-2">Contact | Socials</h2>
-                    <div class="text-gray-800 hover:text-primary-blue transition duration-200">
-                        <!-- Restored original link structure -->
-                        <a href="https://www.linkedin.com/in/zerubabel-t-dinsa-b1727833" target="_blank" class="text-primary-blue hover:underline">Linkedin</a> | 
-                        <a href="https://twitter.com/Dinsa_Zerubabel" target="_blank" class="text-primary-blue hover:underline">X-Platform</a> | 
-                        <a href="https://medium.com/@zerubabel.dinsa" target="_blank" class="text-primary-blue hover:underline">Medium</a>
+                <!-- Contact/Socials Card --><div class="bg-card shadow-xl rounded-2xl p-6 border border-theme">
+                    <h2 class="text-2xl font-vollkorn font-semibold mb-4 text-theme-primary border-b border-theme/50 pb-2">Contact | Socials</h2>
+                    <div class="text-theme-secondary">
+                        <a href="https://www.linkedin.com/in/zerubabel-t-dinsa-b1727833" target="_blank" class="link-theme hover:underline">Linkedin</a> | 
+                        <a href="https://twitter.com/Dinsa_Zerubabel" target="_blank" class="link-theme hover:underline">X-Platform</a> | 
+                        <a href="https://medium.com/@zerubabel.dinsa" target="_blank" class="link-theme hover:underline">Medium</a>
                     </div>
                 </div>
 
